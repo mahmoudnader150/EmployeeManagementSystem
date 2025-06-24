@@ -47,7 +47,37 @@ namespace EmployeeAdminPortal.Controllers
             dbContext.Employees.Add(employeeEntity);
             dbContext.SaveChanges();
             return Ok();
+        }
 
+        [HttpPut]
+        [Route("{id:guid}")]
+        public IActionResult UpdateEmployee(Guid id, AddEmployeeDto addEmployeeDto)
+        {
+            var employeeEntity = dbContext.Employees.Find(id);
+            if (employeeEntity == null)
+            {
+                return NotFound();
+            }
+            employeeEntity.Name = addEmployeeDto.Name;
+            employeeEntity.Email = addEmployeeDto.Email;
+            employeeEntity.Phone = addEmployeeDto.Phone;
+            employeeEntity.Salary = addEmployeeDto.Salary;
+            dbContext.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public IActionResult DeleteEmployee(Guid id)
+        {
+            var employeeEntity = dbContext.Employees.Find(id);
+            if (employeeEntity == null)
+            {
+                return NotFound();
+            }
+            dbContext.Employees.Remove(employeeEntity);
+            dbContext.SaveChanges();
+            return Ok();
         }
     }
 }

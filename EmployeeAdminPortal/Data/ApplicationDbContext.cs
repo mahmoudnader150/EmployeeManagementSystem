@@ -1,6 +1,16 @@
-﻿namespace EmployeeAdminPortal.Data
+﻿using EmployeeAdminPortal.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace EmployeeAdminPortal.Data
 {
-    public class ApplicationDbContext
+    public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
+        {
+
+            
+        }
+
+        public DbSet<Employee> Employees { get; set; }
     }
 }
